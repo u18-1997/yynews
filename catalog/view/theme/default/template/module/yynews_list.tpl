@@ -12,7 +12,7 @@
             <?php if ($yynewss) { ?>
             <?php foreach ($yynewss as $yynews) { ?>
             <tr>
-             <?php if ($display_titleimage) {?> <td class="left" width="65px" ><?php echo $yynews['titleimage']?'<img width="64px" high="64px" src="'.$yynews['titleimage'].'"></img>':"";?></td><?php } ?>
+             <?php if ($display_titleimage) {?> <td class="left" width="65px" ><?php echo $yynews['titleimage']?'<img width="64px" high="64px" src="'.$yynews['titleimage'].'"></img>':"";?></td> <?php } ?>
               <td class="left">
                 <a href="<?php echo $yynews['action'][0]['href']; ?>"><?php echo $yynews['title']; ?></a>
                 <br />
