@@ -463,21 +463,6 @@ class Controllerfeedyynews extends Controller {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
 
-		
-		foreach ($this->request->post['selected'] as $yynews_id) {
-//			if ($this->config->get('config_account_id') == $yynews_id) {
-//				$this->error['warning'] = $this->language->get('error_account');
-//			}
-//			
-//			if ($this->config->get('config_checkout_id') == $yynews_id) {
-//				$this->error['warning'] = $this->language->get('error_checkout');
-//			}
-			
-//			if ($this->config->get('config_affiliate_id') == $yynews_id) {
-//				$this->error['warning'] = $this->language->get('error_affiliate');
-//			}
-		}
-
 		if (!$this->error) {
 			return true;
 		} else {

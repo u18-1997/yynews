@@ -129,14 +129,22 @@ class Controllermoduleyynews extends Controller {
 	
 		$results = $this->model_feed_yynews->getYynewss($data);
  
-    	foreach ($results as $result) {
+                if (isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1'))) 
+                {
+                   $tempTitleImage= $this->config->get('config_ssl') . 'image/';
+                } else 
+                {
+                   $tempTitleImage= $this->config->get('config_url') . 'image/';
+                }	
+                foreach ($results as $result) {
 			$action = array();
 						
 			$action[] = array(
 				'text' => $this->language->get('text_browse'),
 				'href' => $this->url->link('module/yynews/browse', '&yynews_id=' . $result['yynews_id'] . $url, 'SSL')
 			);
-						
+					
+                        
 			$this->data['yynewss'][] = array(
 				'yynews_id' => $result['yynews_id'],
                                 'status'    =>$result['status'],
@@ -144,7 +152,7 @@ class Controllermoduleyynews extends Controller {
 				'title'     => $result['title'],
                                 'newsdate'  => $result['newsdate'],
                                 'summary'  => $result['summary'],
-                                'titleimage'=> $result['titleimage']?HTTP_IMAGE.$result['titleimage']:$result['titleimage'],
+                                'titleimage'=> $result['titleimage']?$tempTitleImage.$result['titleimage']:"",
 				'action'    => $action
 			);
 		}	
