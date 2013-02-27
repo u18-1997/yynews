@@ -205,14 +205,10 @@ class Controllermoduleyynews extends Controller {
 		$pagination->limit = $limit;
 		$pagination->text = $this->language->get('text_pagination');
 		$pagination->url = $this->url->link('common/home', $url . '&page={page}', 'SSL');
-			
 		$this->data['pagination'] = $pagination->render();
-
 		$this->data['sort'] = $sort;
 		$this->data['order'] = $order;
-
 		$this->template = 'default/template/module/yynews_list.tpl';
-				
 		$this->response->setOutput($this->render());
 	}
 
