@@ -174,9 +174,7 @@ class Controllermoduleyynews extends Controller {
 			$this->data['error_warning'] = '';
 		}
 		
-
 		$url = '';
-
 		if ($order == 'ASC') {
 			$url .= '&order=DESC';
 		} else {
@@ -198,7 +196,6 @@ class Controllermoduleyynews extends Controller {
 		if (isset($this->request->get['order'])) {
 			$url .= '&order=' . $this->request->get['order'];
 		}
-
 		$pagination = new Pagination();
 		$pagination->total = $yynews_total;
 		$pagination->page = $page;
