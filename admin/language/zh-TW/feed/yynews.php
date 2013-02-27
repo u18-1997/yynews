@@ -3,7 +3,7 @@
 $_['heading_title']     = '新聞管理';
 
 // Text
-$_['text_success']      = '成成功： 您已成功更新信息設置';
+$_['text_success']      = '成功： 您已成功更新信息設置！';
 $_['text_default']      = '默認';
 $_['text_image_manager']         = '圖像管理';
 $_['text_browse']                = '選擇圖像';
@@ -23,7 +23,7 @@ $_['entry_titleimage'] = '標題圖片';
 $_['entry_top']         = '置頂' ;
 $_['entry_newsdate']    = '時間' ;
 
-$_['entry_keyword']     = 'SEO Keyword:<br /><span class="help">網址別名，請不要使用空格，使用“-”代替空格。</span>';
+$_['entry_keyword']     = 'SEO Keyword:<br /><span class="help">網址別名，請不要使用空格，使用「-」代替空格。</span>';
 $_['entry_status']      = '&nbsp;&nbsp;新聞狀態：';
 
 

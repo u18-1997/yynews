@@ -63,15 +63,7 @@ class ModelFeedYynews extends Model {
 	public function getYynewsDescriptions($yynews_id) {
 		$yynews_description_data = array();
 		
-		$query = $this->db->query("SELECT title,description FROM " . DB_PREFIX . " yynews i LEFT JOIN yynews_description id  ON (i.yynews_id = id.yynews_id) WHERE i.yynews_id = '" . (int)$yynews_id . "' and id.language_id = " . (int)$this->config->get('config_language_id'));
-
-//		foreach ($query->rows as $result) {
-//			$yynews_description_data[$result['language_id']] = array(
-//				'title'       => $result['title'],
-//				'description' => $result['description']
-//			);
-//		}
-		
+		$query = $this->db->query("SELECT title,description FROM " . DB_PREFIX ."yynews i LEFT JOIN ".DB_PREFIX ."yynews_description id  ON (i.yynews_id = id.yynews_id) WHERE i.yynews_id = '" . (int)$yynews_id . "' and id.language_id = " . (int)$this->config->get('config_language_id'));
 		return $query->rows;
 	}
 	

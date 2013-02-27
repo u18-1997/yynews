@@ -20,13 +20,6 @@ class ModelFeedYynews extends Model {
 	}
 	
 	public function editYynews($yynews_id, $data) {
-//                $str="UPDATE " . DB_PREFIX . "yynews SET  top = '" . (isset($data['top']) ? (int)$data['top'] : 0) 
-//                                                ."',newsdate='".$this->db->escape($data['newsdate'])
-//                                                ."',titleimage = '" . $this->db->escape(html_entity_decode($data['image'], ENT_QUOTES, 'UTF-8'))
-//                                                . "', status = '" . (int)$data['status'] . "'"
-//                                                . "  WHERE yynews_id = '" . (int)$yynews_id . "'";
-//                echo $str;
-//                die;
 		$this->db->query("UPDATE " . DB_PREFIX . "yynews SET  top = '" . (isset($data['top']) ? (int)$data['top'] : 0) 
                                                 ."',newsdate='".$this->db->escape($data['newsdate'])
                                                 ."',titleimage = '" . $this->db->escape(html_entity_decode($data['image'], ENT_QUOTES, 'UTF-8'))
@@ -125,7 +118,7 @@ class ModelFeedYynews extends Model {
 	public function getYynewsDescriptions($yynews_id) {
 		$yynews_description_data = array();
 		
-		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . " yynews i LEFT JOIN yynews_description id  ON (i.yynews_id = id.yynews_id) WHERE i.yynews_id = '" . (int)$yynews_id . "'");
+		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "yynews i LEFT JOIN ".DB_PREFIX."yynews_description id  ON (i.yynews_id = id.yynews_id) WHERE i.yynews_id = '" . (int)$yynews_id . "'");
 
 		foreach ($query->rows as $result) {
 			$yynews_description_data[$result['language_id']] = array(
