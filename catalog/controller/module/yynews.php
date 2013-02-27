@@ -1,7 +1,6 @@
 <?php
 class Controllermoduleyynews extends Controller { 
 	private $error = array();
-
 	public function index() {
 		$this->load->language('feed/yynews');
 		$this->load->model('feed/yynews');
@@ -96,7 +95,7 @@ class Controllermoduleyynews extends Controller {
 		} else {
 			$page = 1;
 		}
-		
+	
 		$url = '';
 			
 		if (isset($this->request->get['sort'])) {
@@ -110,7 +109,6 @@ class Controllermoduleyynews extends Controller {
 		if (isset($this->request->get['page'])) {
 			$url .= '&page=' . $this->request->get['page'];
 		}
-
 
 		$this->data['yynewss'] = array();
                 $yynews_module=$this->config->get('yynews_module');
