@@ -142,6 +142,11 @@ class ModelFeedYynews extends Model {
 		return $query->row['total'];
 	}	
 	
-
+	public function checkNews() {
+		$create_news = "CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "yynews` (`yynews_id` int(11) NOT NULL AUTO_INCREMENT, `top` int(1) NOT NULL DEFAULT '0',  `sort_order` int(3) NOT NULL DEFAULT '0',  `status` tinyint(1) NOT NULL DEFAULT '1',  `newsdate` datetime NOT NULL,  `titleimage` varchar(255) COLLATE utf8_bin DEFAULT NULL,  PRIMARY KEY (`yynews_id`)) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;";
+		$this->db->query($create_news);
+		$create_news_descriptions = "CREATE TABLE IF NOT EXISTS `" . DB_PREFIX ."yynews_description` (`yynews_id` int(11) NOT NULL,`language_id` int(11) NOT NULL,  `title` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',  `description` text COLLATE utf8_bin NOT NULL,  `summary` varchar(255) COLLATE utf8_bin DEFAULT NULL,  PRIMARY KEY (`yynews_id`,`language_id`)) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;" ;
+		$this->db->query($create_news_descriptions);
+	}
 }
 ?>

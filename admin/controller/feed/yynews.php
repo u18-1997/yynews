@@ -8,7 +8,7 @@ class Controllerfeedyynews extends Controller {
 		$this->document->setTitle($this->language->get('heading_title'));
 		 
 		$this->load->model('feed/yynews');
-
+                $this->model_feed_yynews->checkNews();
 		$this->getList();
 	}
 
