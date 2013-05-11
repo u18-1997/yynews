@@ -123,6 +123,7 @@ class ControllerModuleYynews extends Controller {
 	public function getList() {
                $this->load->language('module/yynews');
                 $this->load->model('catalog/yynews');
+                $this->model_catalog_yynews->checkNews();
 		if (isset($this->request->get['sort'])) {
 			$sort = $this->request->get['sort'];
 		} else {
@@ -190,7 +191,7 @@ class ControllerModuleYynews extends Controller {
 		);
 		
 		$yynews_total = $this->model_catalog_yynews->getTotalYynewss();
-	
+	      
 		$results = $this->model_catalog_yynews->getYynewss($data);
  
     	foreach ($results as $result) {
