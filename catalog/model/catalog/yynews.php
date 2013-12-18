@@ -3,18 +3,16 @@ class ModelCatalogYynews extends Model {
 
 		public function getYynewss($data = array()) {
 		if ($data) {
-			$sql1 = "SELECT * FROM " . DB_PREFIX . "yynews i LEFT JOIN " . DB_PREFIX . "yynews_description id ON (i.yynews_id = id.yynews_id) WHERE id.language_id = '" . (int)$this->config->get('config_language_id') . "' and top=1 and status=1";
-                        $sql2 = "SELECT * FROM " . DB_PREFIX . "yynews i LEFT JOIN " . DB_PREFIX . "yynews_description id ON (i.yynews_id = id.yynews_id) WHERE id.language_id = '" . (int)$this->config->get('config_language_id') . "' and top=0 and status=1";
-			$sql="";
+			$sql = "SELECT * FROM " . DB_PREFIX . "yynews i LEFT JOIN " . DB_PREFIX . "yynews_description id ON (i.yynews_id = id.yynews_id) WHERE id.language_id = '" . (int)$this->config->get('config_language_id') . "' ";
                         $sort_data = array(
 				'id.title',
 				'i.newsdate'
 			);		
 		
 			if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-				$sql .= " ORDER BY " . $data['sort'];	
+				$sql .= " ORDER BY i.top DESC, " . $data['sort'];	
 			} else {
-				$sql .= " ORDER BY id.newsdate";	
+				$sql .= " ORDER BY i.top DESC, i.newsdate";	
 			}
 			
 			if (isset($data['order']) && ($data['order'] == 'ASC')) {
@@ -22,9 +20,6 @@ class ModelCatalogYynews extends Model {
 			} else {
 				$sql .= " DESC";
 			}
-                        
-                        $sql1='('.$sql1.$sql.')';
-                        
 			if (isset($data['start']) || isset($data['limit'])) {
 				if ($data['start'] < 0) {
 					$data['start'] = 0;
@@ -37,24 +32,19 @@ class ModelCatalogYynews extends Model {
 				$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
                                 
 			}	
-			$sql2='('.$sql2.$sql.')';
-                        $sql=$sql1.' union all '.$sql2;
 			$query = $this->db->query($sql);
-			
 			return $query->rows;
 		} else {
 			$yynews_data = $this->cache->get('yynews.' . (int)$this->config->get('config_language_id'));
 		
 			if (!$yynews_data) {
-                                $sql="( SELECT * FROM " . DB_PREFIX . "yynews i LEFT JOIN " . DB_PREFIX . "yynews_description id ON (i.yynews_id = id.yynews_id) WHERE id.language_id = '" . (int)$this->config->get('config_language_id') . " and top=1 and status=1' ORDER BY i.newsdate ) "
-                                    ." union all  "
-                                    ."( SELECT * FROM " . DB_PREFIX . "yynews i LEFT JOIN " . DB_PREFIX . "yynews_description id ON (i.yynews_id = id.yynews_id) WHERE id.language_id = '" . (int)$this->config->get('config_language_id') . " and top=0 and status=1' ORDER BY i.newsdate ) ";
+                                $sql="( SELECT * FROM " . DB_PREFIX . "yynews i LEFT JOIN " . DB_PREFIX . "yynews_description id ON (i.yynews_id = id.yynews_id) WHERE id.language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY i.top DESC ,i.newsdate ) ";
 				$query = $this->db->query($sql);
 	
 				$yynews_data = $query->rows;
 			
 				$this->cache->set('yynews.' . (int)$this->config->get('config_language_id'), $yynews_data);
-			}	
+			}		
 	
 			return $yynews_data;			
 		}
