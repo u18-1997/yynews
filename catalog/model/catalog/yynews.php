@@ -61,7 +61,7 @@ class ModelCatalogYynews extends Model {
 
 		
 	public function getTotalYynewss() {
-      	$query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "yynews where top=0 and status=1");
+      	$query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "yynews where  status=1");
 		
 		return $query->row['total'];
 	}	
