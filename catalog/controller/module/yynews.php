@@ -37,11 +37,13 @@ class Controllermoduleyynews extends Controller {
                                                                 );               
                 $this->data['title']=$description_info[0]['title'];        
                 $this->data['description']=html_entity_decode($description_info[0]['description'], ENT_QUOTES, 'UTF-8');
-                $this->template = 'default/template/module/yynews_form.tpl';
+                
+			if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/module/yynews_form.tpl')) {
+				$this->template = $this->config->get('config_template') . '/module/yynews_form.tpl';
+			} else {
+				$this->template = 'default/template/module/yynews_form.tpl';
+			}                
 		$this->children = array(
-			'common/column_left',
-			'common/content_top',
-			'common/content_bottom',
 			'common/footer',
 			'common/header'
 		);
@@ -66,10 +68,6 @@ class Controllermoduleyynews extends Controller {
 				$this->template = 'default/template/error/not_found.tpl';
 			}
 			$this->children = array(
-				'common/column_left',
-				'common/column_right',
-				'common/content_top',
-				'common/content_bottom',
 				'common/footer',
 				'common/header'
                                                 );
@@ -203,7 +201,12 @@ class Controllermoduleyynews extends Controller {
 		$this->data['pagination'] = $pagination->render();
 		$this->data['sort'] = $sort;
 		$this->data['order'] = $order;
-		$this->template = 'default/template/module/yynews_list.tpl';
+		if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/module/yynews_list.tpl')) {
+				$this->template = $this->config->get('config_template') . '/module/yynews_list.tpl';
+			} else {
+				$this->template = 'default/template/module/yynews_list.tpl';
+			}   
+
 		$this->response->setOutput($this->render());
 	}
 
