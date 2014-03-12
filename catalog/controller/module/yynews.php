@@ -16,30 +16,34 @@ class Controllermoduleyynews extends Controller {
         }
         private function getDetail()
         {
+				$this->document->setTitle($this->language->get('heading_title')); 
                 $this->data['heading_title'] = $this->language->get('heading_title');
-  		$this->data['breadcrumbs'] = array();
+  		  		$this->data['breadcrumbs'] = array();
                 $this->data['breadcrumbs'][] = array(
                         'text'      => $this->language->get('text_home'),
                                 'href'      => $this->url->link('common/home'),
-                        'separator' => false
+                        'separator' =>false
                 );
-                if (isset($this->request->get['yynews_id']))
+
+               if (isset($this->request->get['yynews_id']))
                 {   $yynews_id=$this->request->get['yynews_id'];}
                 else 
                 {   $yynews_id=0;}
                 $description_info = $this->model_catalog_yynews->getYynewsDescriptions($yynews_id);
+                
                 if ($description_info)
-		 {
+				{
                         $this->data['breadcrumbs'][] = array(
-        		'text'      => $this->data['heading_title'],
+        		'text'      => $description_info[0]['title'],        
 				'href'      => $this->url->link('module/yynews/browse', 'yynews_id=' .  $yynews_id),      		
         		'separator' => $this->language->get('text_separator')
                                                                 );               
-                $this->data['title']=$description_info[0]['title'];        
+                $this->data['title']=$description_info[0]['title'];   
+                $this->document->setTitle( $this->data['title']);      
                 $this->data['description']=html_entity_decode($description_info[0]['description'], ENT_QUOTES, 'UTF-8');
                 
 			if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/module/yynews_form.tpl')) {
-				$this->template = $this->config->get('config_template') . '/module/yynews_form.tpl';
+				$this->template = $this->config->get('config_template') . '/template/module/yynews_form.tpl';
 			} else {
 				$this->template = 'default/template/module/yynews_form.tpl';
 			}                
@@ -163,6 +167,19 @@ class Controllermoduleyynews extends Controller {
 		
 		$this->data['button_insert'] = $this->language->get('button_insert');
 		$this->data['button_delete'] = $this->language->get('button_delete');
+		
+  		$this->data['breadcrumbs'] = array();
+                $this->data['breadcrumbs'][] = array(
+                        'text'      => $this->language->get('text_home'),
+                                'href'      => $this->url->link('common/home'),
+                        'separator' => false
+                );
+               $this->data['breadcrumbs'][] = array(
+                        'text'      => $this->language->get('heading_title'),
+                                'href'      => $this->url->link('module/yynews'),
+                        'separator' => $this->language->get('text_separator')
+
+                );		
  
  		if (isset($this->error['warning'])) {
 			$this->data['error_warning'] = $this->error['warning'];
@@ -202,7 +219,7 @@ class Controllermoduleyynews extends Controller {
 		$this->data['sort'] = $sort;
 		$this->data['order'] = $order;
 		if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/module/yynews_list.tpl')) {
-				$this->template = $this->config->get('config_template') . '/module/yynews_list.tpl';
+				$this->template = $this->config->get('config_template') . '/template//module/yynews_list.tpl';
 			} else {
 				$this->template = 'default/template/module/yynews_list.tpl';
 			}   
